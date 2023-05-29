@@ -1,0 +1,24 @@
+/////// INSERISCI LE TUE VARIBILI DI BASE SCSS ////////////
+///////////////////////////////////////////////////////////
+
+//COLORS
+$black: #0d0d0d;
+$gray: #e6e6e6;
+$white: #ffffff;
+
+//// HEIGHT
+$header: 5rem;
+$height100vh: calc(100dvh - env(safe-area-inset-top));
+$height100vhHeader: calc((100dvh - env(safe-area-inset-top) - #{$header}));
+
+/// QUERY
+$break-2xl: 1536px;
+$break-xl: 1280px;
+$break-lg: 1024px;
+$break-md: 768px;
+$break-sm: 640px;
+
+//// GUTTER
+$gutterBig: 4rem;
+$gutter: 2rem;
+$gutterMini: 0.5rem;
