@@ -1,10 +1,13 @@
 <script>
 import { ref, defineComponent, watchEffect, onMounted } from "vue"
 import { useI18n } from "vue-i18n"
+import Form from "../components/Form.vue"
 
 export default defineComponent({
   name: "Home",
-  components: {},
+  components: {
+    Form
+  },
   setup() {
     const { t, locale } = useI18n()
     return {
@@ -18,6 +21,7 @@ export default defineComponent({
 <template>
   <div class="home">
     <h1>{{ t("pages.home.title") }}</h1>
+    <Form button="invia" formTitle="form titolo" />
   </div>
 </template>
 

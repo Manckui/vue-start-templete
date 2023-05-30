@@ -5,48 +5,40 @@
 /* INSERISCI IL NOME DEL FONT E LE CONFIGURAZIONI CSS DI BASE */
 
 @font-face {
-  font-family: Roboto;
-  src: url("./assets/fonts/Roboto-Black.otf") format("truetype");
+  font-family: Lato;
+  src: url("./assets/fonts/Lato-Black.otf") format("truetype");
   font-weight: 800;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: Roboto;
-  src: url("./assets/fonts/Roboto-Bold.otf") format("truetype");
+  font-family: Lato;
+  src: url("./assets/fonts/Lato-Bold.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: Roboto;
-  src: url("./assets/fonts/Roboto-Medium.otf") format("truetype");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Roboto;
-  src: url("./assets/fonts/Roboto-Regular.otf") format("truetype");
+  font-family: Lato;
+  src: url("./assets/fonts/Lato-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: Roboto;
-  src: url("./assets/fonts/Roboto-Light.otf") format("truetype");
+  font-family: Lato;
+  src: url("./assets/fonts/Lato-Light.ttf") format("truetype");
   font-weight: 200;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: Roboto;
-  src: url("./assets/fonts/Roboto-Thin.otf") format("truetype");
+  font-family: Lato;
+  src: url("./assets/fonts/Lato-Thin.ttf") format("truetype");
   font-weight: 100;
   font-style: normal;
   font-display: swap;
@@ -61,7 +53,7 @@ html {
 *,
 body,
 html {
-  font-family: Roboto;
+  font-family: Lato;
   font-weight: 400;
   color: #0d0d0d;
 }

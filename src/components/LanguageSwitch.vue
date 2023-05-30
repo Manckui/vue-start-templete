@@ -6,7 +6,10 @@ import { paths } from "../paths.js"
 
 export default defineComponent({
   name: "LanguageSwitch",
-  setup() {
+  props: {
+    label: String
+  },
+  setup(props) {
     const { t, locale } = useI18n()
     const router = useRouter()
 
@@ -32,6 +35,7 @@ export default defineComponent({
       locale.value = lang
       router.push(newPath)
     }
+
     const langs = [
       {
         name: "IT",
@@ -42,6 +46,7 @@ export default defineComponent({
         click: () => changeLanguage("en")
       }
     ]
+
     return {
       t,
       locale,
@@ -54,8 +59,13 @@ export default defineComponent({
 
 <template>
   <div>
+    <p class="text-base uppercase mb-1">{{ label }}</p>
     <div class="space-x-4">
-      <button v-for="(lang, i) in langs" :key="`Lang${i}`" @click="lang.click">
+      <button
+        class="text-base uppercase"
+        v-for="(lang, i) in langs"
+        :key="`Lang${i}`"
+        @click="lang.click">
         {{ lang.name }}
       </button>
     </div>
