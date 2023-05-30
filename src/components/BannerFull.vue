@@ -1,11 +1,13 @@
 <script>
-import { ref, defineComponent, watchEffect, onMounted } from "vue"
-import { inView, animate } from "motion"
+import { defineComponent, watchEffect, ref } from "vue"
+import Text from "./Text.vue"
 import ButtonFill from "./ButtonFill.vue"
+import { inView, animate } from "motion"
 
 export default defineComponent({
-  name: "Card",
+  name: "BannerFull",
   components: {
+    Text,
     ButtonFill
   },
   props: {
@@ -13,21 +15,9 @@ export default defineComponent({
     alt: String,
     height: String,
     width: String,
-    title: String,
     classImg: String,
-    subtitle: String,
-    texts: {
-      type: Array,
-      default: () => []
-    },
-    classTitle: String,
-    classSubtitle: String,
-    classText: String,
-    classCard: String,
-    isReverse: {
-      type: Boolean,
-      default: false
-    },
+    title: String,
+    tagTitle: String,
     classButton: String,
     buttonText: String,
     buttonHref: String,
@@ -36,10 +26,10 @@ export default defineComponent({
   },
   setup(props) {
     const containerRef = ref(null)
-    const imgRef = ref(null)
     watchEffect(() => {
       inView(containerRef.value, ({ target }) => {
         const elements = target.querySelectorAll(".animation")
+        const img = target.querySelector(".img")
 
         elements.forEach((el, index) => {
           animate(
@@ -52,6 +42,14 @@ export default defineComponent({
             }
           )
         })
+        animate(
+          img,
+          { transform: "none", opacity: 1 },
+          {
+            duration: 0.15,
+            easing: [0.17, 0.55, 0.55, 1]
+          }
+        )
 
         return () => {
           elements.forEach((el) => {
@@ -64,21 +62,8 @@ export default defineComponent({
               { duration: 0.1 }
             )
           })
-        }
-      })
-      inView(imgRef.value, ({ target }) => {
-        animate(
-          target,
-          { transform: "none", opacity: 1 },
-          {
-            duration: 0.25,
-            easing: [0.17, 0.55, 0.55, 1]
-          }
-        )
-
-        return () => {
           animate(
-            target,
+            img,
             { transform: " scale(.5) translateY(2rem)", opacity: 0 },
             { duration: 0.1 }
           )
@@ -86,19 +71,15 @@ export default defineComponent({
       })
     }, [])
     return {
-      containerRef,
-      imgRef
+      containerRef
     }
   }
 })
 </script>
 
 <template>
-  <div
-    :class="isReverse ? 'grid-cols-2-reverse' : 'md:grid-cols-2 ' + classCard"
-    class="py-4 md:grid md:px-8">
+  <div class="relative banner" ref="containerRef">
     <img
-      ref="imgRef"
       loading="lazy"
       :width="width"
       :height="height"
@@ -107,26 +88,13 @@ export default defineComponent({
       :src="src"
       :alt="alt"
       :class="classImg"
-      class="img" />
-    <div
-      class="p-8 space-y-6"
-      :class="isReverse ? ' md:pr-4  md:text-right' : 'md:pl-4 md:text-left'"
-      ref="containerRef">
-      <h2 :class="classTitle" class="uppercase text-xl animation">
-        {{ title }}
-      </h2>
-      <h3 v-if="subtitle" :class="classSubtitle" class="text-lg animation">
-        {{ subtitle }}
-      </h3>
-      <span class="space-y-4 block">
-        <p
-          v-for="(item, index) in texts"
-          :key="index"
-          :class="classText"
-          class="text-base animation">
-          {{ item.text }}
-        </p>
-      </span>
+      class="img object-cover h-full" />
+    <span
+      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-8">
+      <Text
+        :tag="tagTitle"
+        :text="title"
+        class="text-3xl uppercase mb-5 animation" />
       <ButtonFill
         :href="buttonHref"
         :to="buttonTo"
@@ -134,11 +102,14 @@ export default defineComponent({
         :text="buttonText"
         :class="classButton"
         class="animation" />
-    </div>
+    </span>
   </div>
 </template>
 
 <style scoped lang="scss">
+.banner {
+  height: $height100vhHeader;
+}
 .img {
   transform: scale(0.7) translateY(2rem);
   opacity: 0;
@@ -147,10 +118,5 @@ export default defineComponent({
 .animation {
   transform: translateY(2rem);
   opacity: 0;
-}
-
-.grid-cols-2-reverse {
-  grid-template-columns: 1fr 1fr;
-  direction: rtl;
 }
 </style>

@@ -5,13 +5,15 @@ import Form from "../components/Form.vue"
 import Text from "../components/Text.vue"
 import Card from "../components/Card.vue"
 import img from "../assets/images/default.jpg"
+import BannerFullVue from "../components/BannerFull.vue"
 
 export default defineComponent({
   name: "Home",
   components: {
     Form,
     Text,
-    Card
+    Card,
+    BannerFullVue
   },
   setup() {
     const { t, locale } = useI18n()
@@ -31,12 +33,25 @@ export default defineComponent({
 
 <template>
   <div class="home">
-    <Text text="home pages" tag="h1" class="text-2xl uppercase" />
+    <BannerFullVue
+      :src="img"
+      alt="img default"
+      title="titolo banner home"
+      buttonText="bottone banner" />
     <Card
       :src="img"
       alt="img default"
       title="titolo card"
       subtitle="subtitle card"
+      buttonText="testo bottone"
+      :texts="texts" />
+    <Card
+      :src="img"
+      alt="img default"
+      title="titolo card"
+      subtitle="subtitle card"
+      buttonText="testo bottone"
+      :isReverse="true"
       :texts="texts" />
     <Form button="invia" formTitle="form titolo" />
   </div>
@@ -46,7 +61,6 @@ export default defineComponent({
 .home {
   text-align: center;
   min-height: $height100vh;
-  padding: 0 $gutter;
-  padding-top: calc(#{$header} + #{$gutter});
+  padding-top: calc(#{$header});
 }
 </style>

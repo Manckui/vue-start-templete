@@ -2,12 +2,14 @@
 import { ref, computed, defineComponent } from "vue"
 import gsap from "gsap"
 import { useI18n } from "vue-i18n"
-import ButtonRoute from "./ButtonRoute.vue"
+import Button from "./Button.vue"
+import ArrowDown from "../assets/images/icons/down-arrow.svg"
 
 export default defineComponent({
   name: "Dropdown",
   components: {
-    ButtonRoute
+    Button,
+    ArrowDown
   },
   props: {
     identifier: String,
@@ -66,15 +68,16 @@ export default defineComponent({
   <div>
     <button
       @click="toggleDropdown"
-      class="uppercase text-base button-animation-line">
-      {{ name }}
+      class="uppercase text-base button-animation-line flex items-center space-x-2">
+      <span> {{ name }}</span>
+      <ArrowDown class="arrow" :class="dropdownOpen ? 'rotated' : ''" />
     </button>
     <ul :class="dropdownClass + '-menu' + ' dropdown-menu space-y-2'">
       <li
         v-for="(link, index) in links"
         :key="index"
         :class="dropdownClass + '-item-' + index + ' uppercase text-base'">
-        <ButtonRoute :text="link.name" :to="{ path: link.path }" />
+        <Button :text="link.name" :to="{ path: link.path }" />
       </li>
     </ul>
   </div>
@@ -85,5 +88,13 @@ export default defineComponent({
   height: 0;
   opacity: 0;
   overflow: hidden;
+}
+
+.rotated {
+  transform: rotate(180deg);
+}
+
+.arrow {
+  transition: transform 0.3s ease-in-out;
 }
 </style>

@@ -2,14 +2,14 @@
 import { defineComponent, ref, reactive, watchEffect } from "vue"
 import { useI18n } from "vue-i18n"
 import Text from "./Text.vue"
-import Button from "./Button.vue"
+import ButtonFill from "./ButtonFill.vue"
 import { inView, animate } from "motion"
 
 export default defineComponent({
   name: "Form",
   components: {
     Text,
-    Button
+    ButtonFill
   },
   props: {
     inputs: {
@@ -49,7 +49,8 @@ export default defineComponent({
       type: Function,
       required: true
     },
-    formTitle: String
+    formTitle: String,
+    click: Function
   },
   setup(props) {
     const { t, locale } = useI18n()
@@ -109,7 +110,7 @@ export default defineComponent({
 <template>
   <form
     @submit.prevent="handleSubmit"
-    class="space-y-10 py-4"
+    class="space-y-10 p-8"
     ref="containerRef">
     <Text tag="h2" :text="formTitle" class="text-lg uppercase animation" />
     <div
@@ -143,7 +144,7 @@ export default defineComponent({
         :placeholder="input.placeholder"
         class="p-2 text-base uppercase"></textarea>
     </div>
-    <Button :text="button" type="submit" class="animation" />
+    <ButtonFill :click="click" :text="button" type="submit" class="animation" />
   </form>
 </template>
 

@@ -1,48 +1,56 @@
 <script>
-import { defineComponent, watchEffect, ref } from "vue"
+import { defineComponent, computed, watchEffect, ref } from "vue"
+import { useI18n } from "vue-i18n"
 
 export default defineComponent({
   name: "Button",
   props: {
-    type: String,
+    path: String,
+    class: String,
     text: String,
-    class: String
+    href: String,
+    click: Function
   },
   setup(props) {
-    return {}
+    const { t, locale } = useI18n()
+    const path = computed(() => {
+      return `/${locale.value}/${props.path}`
+    })
+
+    return {
+      path,
+      t,
+      locale
+    }
   }
 })
 </script>
 
 <template>
+  <a
+    v-if="href"
+    :href="href"
+    target="_blank"
+    class="cursor-pointer uppercase text-base button-animation-line"
+    :class="class">
+    {{ text }}
+  </a>
+  <router-link
+    v-else-if="path"
+    :to="{
+      path: path
+    }"
+    class="cursor-pointer uppercase text-base button-animation-line"
+    :class="class">
+    {{ text }}
+  </router-link>
   <button
-    :type="type"
-    :class="class"
-    class="button px-4 py-2 text-base text-center w-full uppercase">
-    <span>{{ text }}</span>
+    v-else
+    @click="click"
+    class="cursor-pointer uppercase text-base button-animation-line"
+    :class="class">
+    {{ text }}
   </button>
 </template>
 
-<style scoped lang="scss">
-.button {
-  background: $gray;
-  color: $black;
-  max-width: 20rem;
-  margin: 0 auto;
-  @screen lg {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.25s ease-in-out;
-    &:hover {
-      animation: rotate624 0.7s ease-in-out both;
-      background: $black;
-      & span {
-        color: $gray;
-        animation: storm1261 0.7s ease-in-out both;
-        animation-delay: 0.06s;
-      }
-    }
-  }
-}
-</style>
+<style scoped lang="scss"></style>
