@@ -26,7 +26,7 @@ export default defineComponent({
             el,
             { transform: "none", opacity: 1 },
             {
-              duration: 0.25,
+              duration: 0.15,
               delay: index * 0.1,
               easing: [0.17, 0.55, 0.55, 1]
             }

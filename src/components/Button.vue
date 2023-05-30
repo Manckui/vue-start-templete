@@ -1,6 +1,5 @@
 <script>
 import { defineComponent, watchEffect, ref } from "vue"
-import { inView, animate } from "motion"
 
 export default defineComponent({
   name: "Button",
