@@ -2,8 +2,13 @@
 import { ref, computed, defineComponent } from "vue"
 import gsap from "gsap"
 import { useI18n } from "vue-i18n"
+import ButtonRoute from "./ButtonRoute.vue"
+
 export default defineComponent({
   name: "Dropdown",
+  components: {
+    ButtonRoute
+  },
   props: {
     identifier: String,
     name: String,
@@ -59,17 +64,17 @@ export default defineComponent({
 
 <template>
   <div>
-    <button @click="toggleDropdown" class="uppercase text-base">
+    <button
+      @click="toggleDropdown"
+      class="uppercase text-base button-animation-line">
       {{ name }}
     </button>
-    <ul :class="dropdownClass + '-menu' + ' dropdown-menu'">
+    <ul :class="dropdownClass + '-menu' + ' dropdown-menu space-y-2'">
       <li
         v-for="(link, index) in links"
         :key="index"
         :class="dropdownClass + '-item-' + index + ' uppercase text-base'">
-        <router-link :to="{ path: link.path }">
-          {{ link.name }}
-        </router-link>
+        <ButtonRoute :text="link.name" :to="{ path: link.path }" />
       </li>
     </ul>
   </div>

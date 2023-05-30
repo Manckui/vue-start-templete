@@ -25,3 +25,78 @@ $gutterMini: 0.5rem;
 
 ////// TRANSITION
 $transitionAll: all 0.3s ease-out;
+
+////////////  KEYFRAMES
+
+@keyframes rotate624 {
+  0% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+
+  25% {
+    transform: rotate(3deg) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: rotate(-3deg) translate3d(0, 0, 0);
+  }
+
+  75% {
+    transform: rotate(1deg) translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+}
+
+@keyframes storm1261 {
+  0% {
+    transform: translate3d(0, 0, 0) translateZ(0);
+  }
+
+  25% {
+    transform: translate3d(2rem, 0, 0) translateZ(0);
+  }
+
+  50% {
+    transform: translate3d(-2rem, 0, 0) translateZ(0);
+  }
+
+  75% {
+    transform: translate3d(1rem, 0, 0) translateZ(0);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0) translateZ(0);
+  }
+}
+
+@mixin hover-animation-line {
+  &:after {
+    content: "";
+    pointer-events: none;
+    bottom: -2px;
+    left: 50%;
+    position: absolute;
+    width: 0%;
+    height: 1px;
+    background-color: $black;
+    transition: ease-in-out 0.25s;
+    transition-property: width, left;
+  }
+  &:hover {
+    &:after {
+      width: 100%;
+      left: 0%;
+    }
+  }
+}
+
+.button-animation-line {
+  position: relative;
+
+  @media (min-width: 1024px) {
+    @include hover-animation-line;
+  }
+}

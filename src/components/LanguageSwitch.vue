@@ -62,7 +62,7 @@ export default defineComponent({
     <p class="text-base uppercase mb-1">{{ label }}</p>
     <div class="space-x-4">
       <button
-        class="text-base uppercase"
+        class="text-base uppercase button-animation-line"
         v-for="(lang, i) in langs"
         :key="`Lang${i}`"
         @click="lang.click">

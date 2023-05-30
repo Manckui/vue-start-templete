@@ -2,11 +2,13 @@
 import { ref, defineComponent, watchEffect, onMounted } from "vue"
 import { useI18n } from "vue-i18n"
 import Form from "../components/Form.vue"
+import Text from "../components/Text.vue"
 
 export default defineComponent({
   name: "Home",
   components: {
-    Form
+    Form,
+    Text
   },
   setup() {
     const { t, locale } = useI18n()
@@ -20,7 +22,7 @@ export default defineComponent({
 
 <template>
   <div class="home">
-    <h1>{{ t("pages.home.title") }}</h1>
+    <Text text="home pages" tag="h1" class="text-2xl uppercase" />
     <Form button="invia" formTitle="form titolo" />
   </div>
 </template>
@@ -30,6 +32,6 @@ export default defineComponent({
   text-align: center;
   min-height: $height100vh;
   padding: 0 $gutter;
-  padding-top: $header;
+  padding-top: calc(#{$header} + #{$gutter});
 }
 </style>

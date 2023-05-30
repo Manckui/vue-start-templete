@@ -21,7 +21,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="header flex items-center justify-between fixed top-0 z-50 w-full">
+  <div class="header flex items-center justify-between fixed top-0 z-40 w-full">
     <Logo />
     <MenuMobile />
   </div>
