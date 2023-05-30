@@ -46,11 +46,15 @@ export default defineComponent({
       default: "Submit"
     },
     handleSubmit: {
-      type: Function,
-      required: true
+      type: Function
     },
     formTitle: String,
-    click: Function
+    click: Function,
+    showTextAnimated: {
+      type: Boolean,
+      default: true
+    },
+    classTitle: String
   },
   setup(props) {
     const { t, locale } = useI18n()
@@ -112,7 +116,15 @@ export default defineComponent({
     @submit.prevent="handleSubmit"
     class="space-y-10 p-8"
     ref="containerRef">
-    <Text tag="h2" :text="formTitle" class="text-lg uppercase animation" />
+    <Text
+      tag="h2"
+      :text="formTitle"
+      class="text-lg uppercase animation"
+      :class="classTitle"
+      v-if="showTextAnimated" />
+    <h2 class="text-lg uppercase animation" :class="classTitle" v-else>
+      {{ formTitle }}
+    </h2>
     <div
       v-for="(input, index) in form"
       :key="index"

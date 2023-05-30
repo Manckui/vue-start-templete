@@ -1,40 +1,43 @@
 <script>
-import { defineComponent, watchEffect, ref } from "vue"
-import Text from "./Text.vue"
-import ButtonFill from "./ButtonFill.vue"
+import { ref, defineComponent, watchEffect, onMounted } from "vue"
 import { inView, animate } from "motion"
+import ButtonFill from "./ButtonFill.vue"
+import Text from "./Text.vue"
 
 export default defineComponent({
-  name: "BannerFull",
+  name: "TextHighlighter",
   components: {
-    Text,
-    ButtonFill
+    ButtonFill,
+    Text
   },
   props: {
-    src: String,
-    alt: String,
-    height: String,
-    width: String,
-    classImg: String,
+    class: String,
     title: String,
-    tagTitle: String,
+    subtitle: String,
+    texts: {
+      type: Array,
+      default: () => []
+    },
+    classTitle: String,
+    classSubtitle: String,
+    classText: String,
     classButton: String,
     buttonText: String,
     buttonHref: String,
     buttonTo: String,
     buttonClick: Function,
+    classTextButton: String,
+    tagTitle: String,
     showTextAnimated: {
       type: Boolean,
       default: true
-    },
-    classTitle: String
+    }
   },
   setup(props) {
     const containerRef = ref(null)
     watchEffect(() => {
       inView(containerRef.value, ({ target }) => {
         const elements = target.querySelectorAll(".animation")
-        const img = target.querySelector(".img")
 
         elements.forEach((el, index) => {
           animate(
@@ -47,14 +50,6 @@ export default defineComponent({
             }
           )
         })
-        animate(
-          img,
-          { transform: "none", opacity: 1 },
-          {
-            duration: 0.15,
-            easing: [0.17, 0.55, 0.55, 1]
-          }
-        )
 
         return () => {
           elements.forEach((el) => {
@@ -67,11 +62,6 @@ export default defineComponent({
               { duration: 0.1 }
             )
           })
-          animate(
-            img,
-            { transform: " scale(.5) translateY(2rem)", opacity: 0 },
-            { duration: 0.1 }
-          )
         }
       })
     }, [])
@@ -83,50 +73,52 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="relative banner" ref="containerRef">
-    <img
-      loading="lazy"
-      :width="width"
-      :height="height"
-      :v-lazy="src"
-      :srcset="src"
-      :src="src"
-      :alt="alt"
-      :class="classImg"
-      class="img object-cover h-full w-full" />
-    <span
-      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-8">
+  <div class="py-4" ref="containerRef" :class="class">
+    <div class="p-8 space-y-6 text-container animation">
       <Text
         v-if="showTextAnimated"
         :class="classTitle"
         :tag="tagTitle"
         :text="title"
-        class="text-3xl uppercase mb-5 animation" />
-      <h1 class="text-3xl uppercase mb-5 animation" :class="classTitle" v-else>
+        class="uppercase text-xl animation" />
+      <h2 class="uppercase text-xl animation" :class="classTitle" v-else>
         {{ title }}
-      </h1>
+      </h2>
+      <h3 v-if="subtitle" :class="classSubtitle" class="text-lg animation">
+        {{ subtitle }}
+      </h3>
+      <span class="space-y-4 block">
+        <p
+          v-for="(item, index) in texts"
+          :key="index"
+          :class="classText"
+          class="text-base animation">
+          {{ item.text }}
+        </p>
+      </span>
       <ButtonFill
         :href="buttonHref"
         :to="buttonTo"
         :click="buttonClick"
         :text="buttonText"
         :class="classButton"
-        class="animation" />
-    </span>
+        class="animation button" />
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-.banner {
-  height: $height100vhHeader;
-}
-.img {
-  transform: scale(0.7) translateY(2rem);
-  opacity: 0;
-}
-
 .animation {
   transform: translateY(2rem);
   opacity: 0;
+}
+
+.text-container {
+  background: $gray;
+}
+
+.button {
+  background: $black;
+  color: $white;
 }
 </style>

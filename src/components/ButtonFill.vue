@@ -19,28 +19,28 @@ export default defineComponent({
 </script>
 
 <template>
-  <div v-if="href" :class="class">
-    <a
-      :href="href"
-      class="button px-4 py-2 text-sm text-center w-full uppercase">
-      <span>{{ text }}</span>
-    </a>
-  </div>
-  <div v-else-if="to" :class="class">
-    <router-link
-      :to="to"
-      class="button px-4 py-2 text-sm text-center w-full uppercase">
-      <span>{{ text }}</span>
-    </router-link>
-  </div>
-  <div v-else :class="class">
-    <button
-      @click="click"
-      :type="type"
-      class="button px-4 py-2 text-sm text-center w-full uppercase">
-      <span>{{ text }}</span>
-    </button>
-  </div>
+  <a
+    v-if="href"
+    :class="class"
+    :href="href"
+    class="button px-4 py-2 text-sm text-center w-full uppercase">
+    <span>{{ text }}</span>
+  </a>
+  <router-link
+    v-else-if="to"
+    :class="class"
+    :to="to"
+    class="button px-4 py-2 text-sm text-center w-full uppercase">
+    <span>{{ text }}</span>
+  </router-link>
+  <button
+    v-else
+    :class="class"
+    @click="click"
+    :type="type"
+    class="button px-4 py-2 text-sm text-center w-full uppercase">
+    <span>{{ text }}</span>
+  </button>
 </template>
 
 <style scoped lang="scss">

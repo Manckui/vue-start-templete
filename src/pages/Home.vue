@@ -6,6 +6,7 @@ import Text from "../components/Text.vue"
 import Card from "../components/Card.vue"
 import img from "../assets/images/default.jpg"
 import BannerFullVue from "../components/BannerFull.vue"
+import TextHighlighter from "../components/TextHighlighter.vue"
 
 export default defineComponent({
   name: "Home",
@@ -13,7 +14,8 @@ export default defineComponent({
     Form,
     Text,
     Card,
-    BannerFullVue
+    BannerFullVue,
+    TextHighlighter
   },
   setup() {
     const { t, locale } = useI18n()
@@ -52,6 +54,11 @@ export default defineComponent({
       subtitle="subtitle card"
       buttonText="testo bottone"
       :isReverse="true"
+      :texts="texts" />
+    <TextHighlighter
+      title="titolo TextHighlighter"
+      subtitle="subtitle TextHighlighter"
+      buttonText="testo bottone"
       :texts="texts" />
     <Form button="invia" formTitle="form titolo" />
   </div>
